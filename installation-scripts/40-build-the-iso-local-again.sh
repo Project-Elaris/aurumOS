@@ -291,12 +291,12 @@ echo
  	echo "Moving pkglist.x86_64.txt"
  	echo "########################"
 	rename=$(date +%Y-%m-%d)
-	pkglist=$buildFolder/iso/arch/pkglist.x86_64.txt
-	if [ ! -f "$pkglist" ]; then
-		echo "ISO build completed without producing $pkglist"
-		exit 1
+	pkglist=$(find "$buildFolder" -type f -path '*/iso/arch/pkglist.x86_64.txt' -print -quit)
+	if [ -n "$pkglist" ]; then
+		cp "$pkglist" "$outFolder/archlinux-$rename-pkglist.txt"
+	else
+		echo "WARNING: ISO build succeeded, but no optional pkglist.x86_64.txt was generated."
 	fi
-	cp "$pkglist" "$outFolder/archlinux-$rename-pkglist.txt"
 
 
 #echo

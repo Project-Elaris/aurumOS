@@ -1,11 +1,18 @@
 # Base system and hardware support
 base
 linux-zen
-linux-firmware
+# Keep firmware focused on the hardware commonly used by the live image.
+# The linux-firmware meta package pulls every vendor firmware collection and
+# exceeds the ISO size budget by itself.
+linux-firmware-intel
+linux-firmware-realtek
 amd-ucode
 intel-ucode
 sof-firmware
 mkinitcpio-archiso
+
+# BIOS bootloader required by the syslinux boot mode
+syslinux
 
 # Live installer and essential storage support
 alci-calamares
@@ -45,6 +52,7 @@ bash-completion
 less
 nano
 sudo
+zsh
 
 # aurumOS branding
 aurum-artwork
