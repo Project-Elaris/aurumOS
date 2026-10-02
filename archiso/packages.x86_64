@@ -45,6 +45,7 @@ bash-completion
 less
 nano
 sudo
+zsh
 
 # aurumOS branding
 aurum-artwork
