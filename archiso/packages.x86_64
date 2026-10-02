@@ -1,195 +1,51 @@
-alsa-utils
-amd-ucode
-arch-install-scripts
-archinstall
-b43-fwcutter
+# Base system and hardware support
 base
-bcachefs-tools
-bind
-bolt
-brltty
-broadcom-wl-dkms
+linux-zen
+linux-firmware
+amd-ucode
+intel-ucode
+sof-firmware
+mkinitcpio-archiso
+
+# Live installer and essential storage support
+alci-calamares
+aurum-calamares-config
+archinstall
 btrfs-progs
-clonezilla
-cloud-init
 cryptsetup
-darkhttpd
-ddrescue
-dhclient
-dhcpcd
-diffutils
-dmidecode
-dmraid
-dnsmasq
 dosfstools
 e2fsprogs
-edk2-shell
 efibootmgr
-espeakup
-ethtool
 exfatprogs
-f2fs-tools
-fatresize
-foot-terminfo
-fsarchiver
-gpart
-gpm
-gptfdisk
-grml-zsh-config
-grub
-hdparm
-hyperv
-intel-ucode
-irssi
-iw
-iwd
-jfsutils
-kitty-terminfo
-ldns
-less
-lftp
-libfido2
-libusb-compat
-#linux
-linux-atm
-linux-firmware
-linux-firmware-marvell
-livecd-sounds
-lsscsi
 lvm2
-lynx
-man-db
-man-pages
-mc
-mdadm
-memtest86+
-memtest86+-efi
-mkinitcpio
-mkinitcpio-archiso
-mkinitcpio-nfs-utils
-modemmanager
-mtools
-nano
-nbd
-ndisc6
-nfs-utils
-nilfs-utils
-nmap
 ntfs-3g
-nvme-cli
-open-iscsi
-open-vm-tools
-openconnect
-openpgp-card-tools
-openssh
-openvpn
-partclone
-parted
-partimage
-pcsclite
-ppp
-pptpclient
-pv
-qemu-guest-agent
-refind
-reflector
-rp-pppoe
-rsync
-rxvt-unicode-terminfo
-screen
-sdparm
-sequoia-sq
-sg3_utils
-smartmontools
-sof-firmware
-squashfs-tools
-sudo
-syslinux
-systemd-resolvconf
-tcpdump
-terminus-font
-testdisk
-tmux
-tpm2-tools
-tpm2-tss
-udftools
-usb_modeswitch
-usbmuxd
-usbutils
-vim
-virtualbox-guest-utils
-vpnc
-wireless-regdb
-wireless_tools
-wpa_supplicant
-wvdial
-xfsprogs
-xl2tpd
-zsh
-
-
-# everything above comes from archiso releng folder
-#######################################################
-###                    ALCI                         ###
-#######################################################
-
-#######################################################
-###  PACKAGES THAT ARE REMOVED AFTER INSTALLATION   ###
-###             VIA CALAMARES CONFIG                ###
-#######################################################
-
-alci-calamares
-
-#######################################################
-###      PACKAGES THAT STAY AFTER INSTALLATION      ###
-#######################################################
-
-sddm
-bash-completion
 os-prober
-dex
-libxinerama
-make
-xorg-xkill
-xterm
-xorg-xrdb
-mkinitcpio-openswap
+parted
 
-##### you can also use nmtui from the terminal
+# Networking
 networkmanager
 network-manager-applet
+iwd
+wireless-regdb
 
-#######################################################
-###                    EXTRAS                       ###
-#######################################################
+# COSMIC desktop (Rust/Wayland)
+sddm
+cosmic-session
+cosmic-terminal
+cosmic-files
+cosmic-settings
+xdg-desktop-portal-cosmic
 
-##### xorg applications
+# Audio and everyday live-session utilities
+pipewire
+pipewire-pulse
+wireplumber
+alsa-utils
+bash-completion
+less
+nano
+sudo
 
-xorg-server
-xorg-apps
-neofetch
-
-##### want to have base-devel group
-
-base-devel
-
-#### want have a btrfs format
-#### use alci-calamares-config-btrfs 
-
-linux-zen
-linux-zen-headers
-
-cinnamon
-nemo-fileroller
-cinnamon-translations
-gnome-terminal
-git
-
-
-# Additional packages
+# aurumOS branding
 aurum-artwork
 aurum-backgrounds
-aurum-calamares-config
-nitch
-distrobox
-yay
