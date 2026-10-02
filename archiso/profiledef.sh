@@ -27,9 +27,7 @@ iso_application="aurumOS Live/Rescue DVD"
 iso_version="$iso_state-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)-$iso_codename"
 install_dir="aurum"
 buildmodes=('iso')
-bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito'
-  'uefi-ia32.systemd-boot.esp' 'uefi-x64.systemd-boot.esp'
-  'uefi-ia32.systemd-boot.eltorito' 'uefi-x64.systemd-boot.eltorito')
+bootmodes=('bios.syslinux' 'uefi.systemd-boot')
 arch="x86_64"
 pacman_conf="pacman.conf"
 airootfs_image_type="squashfs"
