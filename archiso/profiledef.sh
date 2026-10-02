@@ -19,12 +19,17 @@
 # bootstrap_tarball_compression: The compression options for the bootstrap tarball.
 # file_permissions: An associative array defining the file permissions for specific files and directories.
 iso_name="aurumOS"
-iso_label="AURUM_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+# Derive all release identifiers from one timestamp.  SOURCE_DATE_EPOCH keeps
+# rebuilds reproducible while the year-month format gives each monthly release
+# a concise, predictable filename.
+build_epoch="${SOURCE_DATE_EPOCH:-$(date +%s)}"
+release_month="$(date --utc --date="@${build_epoch}" +%Y.%m)"
+iso_label="AURUM_${release_month//./}"
 iso_publisher="Ecliptica Ltd. <https://ecliptica.pp.ua>"
 iso_state="Beta"
 iso_codename="Helios"
 iso_application="aurumOS Live/Rescue DVD"
-iso_version="$iso_state-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)-$iso_codename"
+iso_version="${iso_state}-${release_month}-${iso_codename}"
 install_dir="aurum"
 buildmodes=('iso')
 bootmodes=('bios.syslinux' 'uefi.systemd-boot')
