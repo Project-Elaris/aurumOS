@@ -256,7 +256,10 @@ echo
 
 	[ -d $outFolder ] || mkdir $outFolder
 	cd $buildFolder/archiso/
-	sudo mkarchiso -v -w $buildFolder -o $outFolder $buildFolder/archiso/
+	if ! sudo mkarchiso -v -w $buildFolder -o $outFolder $buildFolder/archiso/; then
+		echo "ISO build failed; the package list was not generated."
+		exit 1
+	fi
 
 
 
@@ -288,7 +291,12 @@ echo
  	echo "Moving pkglist.x86_64.txt"
  	echo "########################"
 	rename=$(date +%Y-%m-%d)
- 	cp $buildFolder/iso/arch/pkglist.x86_64.txt  $outFolder/archlinux-$rename-pkglist.txt
+	pkglist=$(find "$buildFolder" -type f -path '*/iso/arch/pkglist.x86_64.txt' -print -quit)
+	if [ -n "$pkglist" ]; then
+		cp "$pkglist" "$outFolder/archlinux-$rename-pkglist.txt"
+	else
+		echo "WARNING: ISO build succeeded, but no optional pkglist.x86_64.txt was generated."
+	fi
 
 
 #echo

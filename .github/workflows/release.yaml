@@ -7,6 +7,7 @@ on:
         description: 'State of the release'
         required: true
         default: 'stable'
+        type: choice
         options:
           - 'stable'
           - 'beta'
@@ -21,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Build Docker image
       run: docker build -t aurum-image:latest .
@@ -30,10 +31,11 @@ jobs:
       run: docker run --privileged --name aurum-container -v ${{ github.workspace }}/output:/output aurum-image:latest
 
     - name: Upload ISO
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: iso-artifact
-        path: output/
+        path: output/*.iso
+        if-no-files-found: error
     - uses: ncipollo/release-action@v1
       with:
         name: aurumOS ${{inputs.codename}}-${{inputs.state}}

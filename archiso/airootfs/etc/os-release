@@ -1,0 +1,10 @@
+NAME="aurumOS"
+PRETTY_NAME="aurumOS Beta (Helios)"
+ID=aurumos
+ID_LIKE=arch
+VERSION_ID="beta"
+VERSION_CODENAME=helios
+HOME_URL="https://ecliptica.pp.ua"
+SUPPORT_URL="https://github.com/Ecliptica-Ltd/aurumOS/discussions"
+BUG_REPORT_URL="https://github.com/Ecliptica-Ltd/aurumOS/issues"
+ANSI_COLOR="1;33"
