@@ -1,25 +1,27 @@
-# aurumOS
-
 <div align="center">
+<h1>aurumOS</h1>
 
 ![GitHub Issues](https://img.shields.io/github/issues/Ecliptica-Ltd/aurumOS?style=for-the-badge&logo=github&logoColor=C99700&label=Issues&labelColor=black&color=C99700)
 
 </div>
 
-## Description
+<h2 align="center">Description</h2>
 
 **aurumOS** is an Arch Linux-based live and installation ISO built around the
 COSMIC desktop and Calamares installer. It provides a focused, modern desktop
 environment while retaining the storage, networking, and firmware tools needed
 to install aurumOS on typical x86_64 hardware.
 
-The ISO profile is configured for both BIOS Syslinux and UEFI systemd-boot
-media. Monthly release identifiers use the `State-YYYY.MM-Codename` format;
-for example, `aurumOS-Beta-2026.10-Helios-x86_64.iso`.
+> [!CAUTION]
+> Project is on deep alpha state.
 
-## Building
+> [!TIP]
+> But, if you want to help us, you can do it by submitting pull requests!
 
-### Docker (recommended)
+<h2 align="center">Building</h2>
+
+<h3 align="center">Docker</h3>
+<h4 align="center">(recommended)</h4>
 
 Docker provides a repeatable Arch Linux build environment. From the repository
 root, build the image and mount an output directory:
@@ -34,7 +36,7 @@ docker run --rm --privileged \
 
 The generated ISO is written to `output/`.
 
-### Arch Linux host
+<h3 align="center">Arch host</h3>
 
 On an up-to-date Arch Linux host, install the build dependencies and use one
 of the supplied scripts:
@@ -48,7 +50,7 @@ sudo pacman -Syu --needed archiso sudo
 `40-build-the-iso-local-again.sh` reuses the local cache for subsequent builds.
 See [archiso.md](archiso.md) for additional Archiso notes.
 
-## Configuration
+<h2 align="center">Configuration</h2>
 
 * Edit [archiso/packages.x86_64](archiso/packages.x86_64) to change software
   included in the live ISO.
@@ -60,11 +62,12 @@ See [archiso.md](archiso.md) for additional Archiso notes.
 The live system identifies itself as aurumOS through
 `/etc/os-release`; its profile is Arch-compatible (`ID_LIKE=arch`).
 
-## Downloads and support
+<h2 align="center">Downloads and support</h2>
 
-* [Development build workflows](https://github.com/Ecliptica-Ltd/aurumOS/actions)
-* [Releases](https://github.com/Ecliptica-Ltd/aurumOS/releases)
-* [Issue tracker](https://github.com/Ecliptica-Ltd/aurumOS/issues)
+* [Development build workflows](https://github.com/Project-Elaris/aurumOS/actions)
+* [Releases](https://github.com/Project-Elaris/aurumOS/releases)
+* [Issue tracker](https://github.com/Project-Elaris/aurumOS/issues)
 
-When filing an issue, include the ISO version, boot mode (BIOS or UEFI),
-hardware details, and the relevant build or boot log.
+> [!TIP]
+> When filing an issue, include the ISO version, boot mode (BIOS or UEFI),
+> hardware details, and the relevant build or boot log.
