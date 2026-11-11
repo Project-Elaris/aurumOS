@@ -15,7 +15,7 @@ mkinitcpio-archiso
 syslinux
 
 # Live installer and essential storage support
-alci-calamares
+calamares
 aurum-calamares-config
 archinstall
 btrfs-progs
@@ -53,7 +53,3 @@ less
 nano
 sudo
 zsh
-
-# aurumOS branding
-aurum-artwork
-aurum-backgrounds

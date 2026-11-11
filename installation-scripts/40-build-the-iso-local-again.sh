@@ -39,7 +39,6 @@ echo "################################################################## "
 echo
 
 	# setting of the general parameters
-	archisoRequiredVersion="archiso 82-1"
 	buildFolder=$HOME"/alci-build"
 	outFolder=$HOME"/Alci-Iso-Zen-Out"
 	archisoVersion=$(sudo pacman -Q archiso)
@@ -48,37 +47,16 @@ echo
 	#echo "Building the desktop                   : "$desktop
 	#echo "Building version                       : "$arcolinuxVersion
 	#echo "Iso label                              : "$isoLabel
-	echo "Do you have the right archiso version? : "$archisoVersion
-	echo "What is the required archiso version?  : "$archisoRequiredVersion
+	echo "Installed Archiso version             : "$archisoVersion
 	echo "Build folder                           : "$buildFolder
 	echo "Out folder                             : "$outFolder
 	echo "################################################################## "
-
-	if [ "$archisoVersion" == "$archisoRequiredVersion" ]; then
-		tput setaf 2
-		echo "##################################################################"
-		echo "Archiso has the correct version. Continuing ..."
-		echo "##################################################################"
-		tput sgr0
-	else
-	tput setaf 1
-	echo "###################################################################################################"
-	echo "You need to install the correct version of Archiso"
-	echo "Use 'sudo downgrade archiso' to do that"
-	echo "or update your system"
-	echo "If a new archiso package comes in and you want to test if you can still build"
-	echo "the iso then change the version in line 37."
-	echo "###################################################################################################"
-	tput sgr0
-	fi
 
 echo
 echo "################################################################## "
 tput setaf 2
 echo "Phase 2 :"
 echo "- Checking if archiso is installed"
-echo "- Saving current archiso version to archiso.md"
-echo "- Making mkarchiso verbose"
 tput sgr0
 echo "################################################################## "
 echo
@@ -129,11 +107,6 @@ echo
 	fi
 
 	echo
-	echo "Saving current archiso version to archiso.md"
-	sudo sed -i "s/\(^archiso-version=\).*/\1$archisoVersion/" ../archiso.md
-	echo
-	echo "Making mkarchiso verbose"
-	sudo sed -i 's/quiet="y"/quiet="n"/g' /usr/bin/mkarchiso
 
 echo
 echo "################################################################## "
@@ -153,12 +126,7 @@ echo
 	mkdir $buildFolder
 	cp -r ../archiso $buildFolder/archiso
 
-# echo
-# echo "################################################################## "
-# tput setaf 2
-# echo "Phase 4 :"
-# echo "- Deleting any files in /etc/skel"
-# echo "- Getting the last version of bashrc in /etc/skel"
+	echo
 # echo "- Removing the old packages.x86_64 file from build folder"
 # echo "- Copying the new packages.x86_64 file to the build folder"
 # echo "- Changing group for polkit folder"

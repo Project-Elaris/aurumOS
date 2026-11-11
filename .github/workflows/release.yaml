@@ -1,20 +1,10 @@
 name: Build and Upload Release
 
-on: 
+on:
   workflow_dispatch:
-    inputs:
-      state:
-        description: 'State of the release'
-        required: true
-        default: 'stable'
-        type: choice
-        options:
-          - 'stable'
-          - 'beta'
-          - 'alpha'
-      codename:
-        description: 'Codename of the release'
-        required: true
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -24,20 +14,63 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Read release metadata
+      id: metadata
+      shell: bash
+      run: |
+        export SOURCE_DATE_EPOCH="$(date +%s)"
+        declare -A file_permissions
+        source archiso/profiledef.sh
+        boot_modes="$(IFS=', '; echo "${bootmodes[*]}")"
+
+        {
+          echo "source_date_epoch=$SOURCE_DATE_EPOCH"
+          echo "iso_name=$iso_name"
+          echo "iso_version=$iso_version"
+          echo "iso_label=$iso_label"
+          echo "iso_publisher=$iso_publisher"
+          echo "iso_application=$iso_application"
+          echo "arch=$arch"
+          echo "boot_modes=$boot_modes"
+          echo "release_name=$iso_name $iso_version"
+          echo "release_tag=$iso_name-$iso_version"
+          echo "artifact_name=$iso_name-$iso_version-$arch"
+          if [[ "${iso_state,,}" == "stable" ]]; then
+            echo "prerelease=false"
+          else
+            echo "prerelease=true"
+          fi
+        } >> "$GITHUB_OUTPUT"
+
     - name: Build Docker image
       run: docker build -t aurum-image:latest .
 
-    - name: Run Docker container with privileged mode
-      run: docker run --privileged --name aurum-container -v ${{ github.workspace }}/output:/output aurum-image:latest
+    - name: Build ISO
+      env:
+        SOURCE_DATE_EPOCH: ${{ steps.metadata.outputs.source_date_epoch }}
+      run: docker run --privileged --name aurum-container -e SOURCE_DATE_EPOCH -v "${{ github.workspace }}/output:/output" aurum-image:latest
 
-    - name: Upload ISO
+    - name: Upload release artifact
       uses: actions/upload-artifact@v4
       with:
-        name: iso-artifact
+        name: ${{ steps.metadata.outputs.artifact_name }}
         path: output/*.iso
         if-no-files-found: error
-    - uses: ncipollo/release-action@v1
+
+    - name: Publish GitHub release
+      uses: ncipollo/release-action@v1
       with:
-        name: aurumOS ${{inputs.codename}}-${{inputs.state}}
-        tag: ${{inputs.codename}}-${{inputs.state}}
+        name: ${{ steps.metadata.outputs.release_name }}
+        tag: ${{ steps.metadata.outputs.release_tag }}
+        body: |
+          ## ${{ steps.metadata.outputs.iso_application }}
+
+          | Release details | Value |
+          | --- | --- |
+          | Version | `${{ steps.metadata.outputs.iso_version }}` |
+          | Architecture | `${{ steps.metadata.outputs.arch }}` |
+          | Boot modes | `${{ steps.metadata.outputs.boot_modes }}` |
+          | ISO label | `${{ steps.metadata.outputs.iso_label }}` |
+          | Publisher | ${{ steps.metadata.outputs.iso_publisher }} |
         artifacts: output/*.iso
+        prerelease: ${{ steps.metadata.outputs.prerelease }}
